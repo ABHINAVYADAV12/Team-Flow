@@ -7,11 +7,13 @@ export default function SignupPage() {
   const router = useRouter();
   const [form, setForm] = useState({ name: '', email: '', password: '', role: 'member' });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess(false);
     if (form.password.length < 6) { setError('Password must be at least 6 characters'); return; }
     setLoading(true);
     try {
@@ -22,8 +24,12 @@ export default function SignupPage() {
       });
       const data = await res.json();
       if (!res.ok) { setError(data.error); return; }
-      router.push('/dashboard');
-      router.refresh();
+      
+      setSuccess(true);
+      setTimeout(() => {
+        router.push('/dashboard');
+        router.refresh();
+      }, 1500);
     } catch {
       setError('Something went wrong. Please try again.');
     } finally {
@@ -42,6 +48,7 @@ export default function SignupPage() {
 
         <div className="card" style={{ padding: '2rem' }}>
           {error && <div className="alert alert-error">{error}</div>}
+          {success && <div className="alert" style={{ borderColor: 'var(--green)', color: 'var(--green)', background: 'rgba(16, 185, 129, 0.1)', marginBottom: '1.5rem' }}>Account created successfully! Redirecting...</div>}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label className="form-label">Full Name</label>

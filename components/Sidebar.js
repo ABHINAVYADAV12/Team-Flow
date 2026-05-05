@@ -108,10 +108,10 @@ export default function Sidebar({ user }) {
             <div style={{ fontWeight: 600, fontSize: '0.875rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.name}</div>
             <span className={`badge badge-${user?.role}`} style={{ fontSize: '0.65rem', padding: '0.1rem 0.4rem' }}>{user?.role}</span>
           </div>
-          <button onClick={handleLogout} className="btn btn-ghost btn-sm" disabled={loggingOut} title="Logout" style={{ padding: '0.375rem', flexShrink: 0 }}>
-            {loggingOut ? '…' : '→'}
-          </button>
         </div>
+        <button onClick={handleLogout} className="btn btn-secondary btn-sm" disabled={loggingOut} style={{ width: '100%', marginTop: '0.75rem', justifyContent: 'center', color: '#f87171' }}>
+          {loggingOut ? 'Logging out...' : 'Log out'}
+        </button>
       </div>
     </aside>
   );
